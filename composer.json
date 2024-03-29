@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Vikramjeet Singh\\Webflow\\": "src/",
-            "Vikramjeet Singh\\Webflow\\Database\\Factories\\": "database/factories/"
+            "Svikramjeet\\Webflow\\": "src/",
+            "Svikramjeet\\Webflow\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vikramjeet Singh\\Webflow\\Tests\\": "tests/",
+            "Svikramjeet\\Webflow\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -72,10 +72,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vikramjeet Singh\\Webflow\\WebflowServiceProvider"
+                "Svikramjeet\\Webflow\\WebflowServiceProvider"
             ],
             "aliases": {
-                "Webflow": "Vikramjeet Singh\\Webflow\\Facades\\Webflow"
+                "Webflow": "Svikramjeet\\Webflow\\Facades\\Webflow"
             }
         }
     },
