@@ -4,17 +4,16 @@ namespace Svikramjeet\Webflow;
 
 class Webflow
 {
-    private const API_ENDPOINT = 'https://api.webflow.com';
+    private const API_ENDPOINT = 'https://api.webflow.com/v2';
 
     private string $token;
-    private string $version = '1.0.0';
     private array $cache = [];
 
-    public function __construct(?string $token)
+    public function __construct()
     {
-        $token = $token ?? config('webflow.token');
+        $token = config('webflow.token');
         if (empty($token)) {
-            throw new Exception('Token cannot be empty.');
+            throw new WebflowException('Token cannot be empty.');
         }
         $this->token = $token;
     }
@@ -27,7 +26,6 @@ class Webflow
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer {$this->token}",
-                "accept-version: {$this->version}",
                 "Accept: application/json",
                 "Content-Type: application/json",
             ],
