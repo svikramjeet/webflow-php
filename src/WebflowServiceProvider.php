@@ -17,9 +17,6 @@ class WebflowServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('webflow')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_webflow_table')
-            ->hasCommand(WebflowCommand::class);
+            ->hasConfigFile();
     }
 }
