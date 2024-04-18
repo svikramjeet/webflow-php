@@ -10,8 +10,9 @@ class Webflow
     private string $version = '1.0.0';
     private array $cache = [];
 
-    public function __construct(string $token)
+    public function __construct(?string $token)
     {
+        $token = $token ?? config('webflow.token');
         if (empty($token)) {
             throw new Exception('Token cannot be empty.');
         }
