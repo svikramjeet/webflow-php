@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="Vikramjeet Singh Test Suite">
+        <testsuite name="Webflow Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
