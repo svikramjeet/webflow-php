@@ -158,7 +158,7 @@ class Webflow
     public function findOrCreateItemByName(string $collectionId, array $fields): mixed
     {
         if (! isset($fields['name'])) {
-            throw new Exception('Name field is required.');
+            throw new WebflowException('Name field is required.');
         }
         $cacheKey = "collection-{$collectionId}-items";
         $instance = $this;
