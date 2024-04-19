@@ -7,6 +7,7 @@ class Webflow
     private const API_ENDPOINT = 'https://api.webflow.com/v2';
 
     private string $token;
+
     private array $cache = [];
 
     public function __construct()
@@ -22,46 +23,47 @@ class Webflow
     {
         $curl = curl_init();
         $options = [
-            CURLOPT_URL => self::API_ENDPOINT . $path,
+            CURLOPT_URL => self::API_ENDPOINT.$path,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer {$this->token}",
-                "Accept: application/json",
-                "Content-Type: application/json",
+                'Accept: application/json',
+                'Content-Type: application/json',
             ],
             CURLOPT_HEADER => true,
             CURLOPT_RETURNTRANSFER => true,
         ];
-        if (!empty($data)) {
+        if (! empty($data)) {
             $json = json_encode($data);
             $options[CURLOPT_POSTFIELDS] = $json;
-            $options[CURLOPT_HTTPHEADER][] = "Content-Length: " . strlen($json);
+            $options[CURLOPT_HTTPHEADER][] = 'Content-Length: '.strlen($json);
         }
         curl_setopt_array($curl, $options);
         $response = curl_exec($curl);
         curl_close($curl);
-        list(, $body) = explode("\r\n\r\n", $response, 2);
+        [, $body] = explode("\r\n\r\n", $response, 2);
+
         return json_decode($body);
     }
 
     private function get(string $path): mixed
     {
-        return $this->request($path, "GET");
+        return $this->request($path, 'GET');
     }
 
     private function post(string $path, array $data): mixed
     {
-        return $this->request($path, "POST", $data);
+        return $this->request($path, 'POST', $data);
     }
 
     private function put(string $path, array $data): mixed
     {
-        return $this->request($path, "PUT", $data);
+        return $this->request($path, 'PUT', $data);
     }
 
     private function delete(string $path): mixed
     {
-        return $this->request($path, "DELETE");
+        return $this->request($path, 'DELETE');
     }
 
     public function info(): mixed
@@ -105,6 +107,7 @@ class Webflow
             'offset' => $offset,
             'limit' => $limit,
         ]);
+
         return $this->get("/collections/{$collectionId}/items?{$query}");
     }
 
@@ -119,6 +122,7 @@ class Webflow
             $offset = $response->limit * $page;
             $items = array_merge($items, $this->items($collectionId, $offset, $limit)->items);
         }
+
         return $items;
     }
 
@@ -130,17 +134,18 @@ class Webflow
     public function createItem(string $collectionId, array $fields, bool $live = false): mixed
     {
         $defaults = [
-            "_archived" => false,
-            "_draft" => false,
+            '_archived' => false,
+            '_draft' => false,
         ];
-        return $this->post("/collections/{$collectionId}/items" . ($live ? "?live=true" : ""), [
+
+        return $this->post("/collections/{$collectionId}/items".($live ? '?live=true' : ''), [
             'fields' => array_merge($defaults, $fields),
         ]);
     }
 
     public function updateItem(string $collectionId, string $itemId, array $fields, bool $live = false): mixed
     {
-        return $this->put("/collections/{$collectionId}/items/{$itemId}" . ($live ? "?live=true" : ""), [
+        return $this->put("/collections/{$collectionId}/items/{$itemId}".($live ? '?live=true' : ''), [
             'fields' => $fields,
         ]);
     }
@@ -152,7 +157,7 @@ class Webflow
 
     public function findOrCreateItemByName(string $collectionId, array $fields): mixed
     {
-        if (!isset($fields['name'])) {
+        if (! isset($fields['name'])) {
             throw new Exception('Name field is required.');
         }
         $cacheKey = "collection-{$collectionId}-items";
@@ -168,14 +173,16 @@ class Webflow
         $newItem = $this->createItem($collectionId, $fields);
         $items[] = $newItem;
         $this->cacheSet($cacheKey, $items);
+
         return $newItem;
     }
 
     private function cache(string $key, callable $callback): mixed
     {
-        if (!isset($this->cache[$key])) {
+        if (! isset($this->cache[$key])) {
             $this->cache[$key] = $callback();
         }
+
         return $this->cache[$key];
     }
 

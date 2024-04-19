@@ -4,7 +4,6 @@ namespace Svikramjeet\Webflow;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Svikramjeet\Webflow\Commands\WebflowCommand;
 
 class WebflowServiceProvider extends PackageServiceProvider
 {
