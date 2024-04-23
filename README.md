@@ -3,12 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/svikramjeet/webflow.svg?style=flat-square)](https://packagist.org/packages/svikramjeet/webflow)
 [![Total Downloads](https://img.shields.io/packagist/dt/svikramjeet/webflow.svg?style=flat-square)](https://packagist.org/packages/svikramjeet/webflow)
 
-Webflwo API wrapper for PHP and laravel
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/webflow.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/webflow)
-
+Webflow API wrapper for PHP and Laravel
 
 ## Installation
 
