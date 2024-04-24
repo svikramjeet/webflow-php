@@ -134,13 +134,14 @@ class Webflow
     public function createItem(string $collectionId, array $fields, bool $live = false): mixed
     {
         $defaults = [
-            '_archived' => false,
-            '_draft' => false,
+            'isArchived' => false,
+            'isDraft' => false,
         ];
 
-        return $this->post("/collections/{$collectionId}/items".($live ? '?live=true' : ''), [
-            'fields' => array_merge($defaults, $fields),
-        ]);
+        return $this->post(
+            "/collections/{$collectionId}/items".($live ? '?live=true' : ''),
+            array_merge($defaults, $fields),
+        );
     }
 
     public function updateItem(string $collectionId, string $itemId, array $fields, bool $live = false): mixed
